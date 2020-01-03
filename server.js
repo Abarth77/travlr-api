@@ -3,6 +3,7 @@ require("@babel/register")({extensions: ['.js', '.ts']});
 const Koa = require('koa');
 const logger = require('koa-logger');
 const Router = require('koa-router');
+const cors = require('koa2-cors');
 const app = new Koa();
 
 const weatherRoutes = require('./api/external/weather/Weather.routes');
@@ -17,6 +18,7 @@ const weatherRoutes = require('./api/external/weather/Weather.routes');
 // https://www.npmjs.com/package/node-schedule
 // const scheduler = require('node-schedule');
 
+app.use(cors());
 app.use(logger());
 
 app.use(async (ctx, next) => {
