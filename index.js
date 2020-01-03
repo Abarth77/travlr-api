@@ -1,7 +1,11 @@
+require("@babel/register")({extensions: ['.js', '.ts']});
+
 const Koa = require('koa');
 const logger = require('koa-logger');
 const Router = require('koa-router');
 const app = new Koa();
+
+const weatherRoutes = require('./api/external/weather/Weather.routes');
 
 // API build based on
 // https://codeburst.io/lets-build-an-api-with-koa-part-2-34d943e900a1
@@ -11,7 +15,7 @@ const app = new Koa();
 
 // Cronjob library
 // https://www.npmjs.com/package/node-schedule
-const scheduler = require('node-schedule');
+// const scheduler = require('node-schedule');
 
 app.use(logger());
 
@@ -29,7 +33,7 @@ const weatherRouter = new Router({
     prefix: '/weather'
 });
 
-require('./routes/weather')({ weatherRouter });
+weatherRoutes.getWeather({weatherRouter});
 
 app.use(weatherRouter.routes());
 app.use(weatherRouter.allowedMethods());
