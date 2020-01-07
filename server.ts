@@ -10,8 +10,8 @@ import { WeatherRouter } from './api/weather/Weather.routes';
 const app = new Koa();
 const router = new Router();
 
-const weatherRouter = new WeatherRouter(router);
-const flightRouter = new FlightRouter(router);
+const weatherRouter = new WeatherRouter();
+const flightRouter = new FlightRouter();
 
 app
 .use(cors())
