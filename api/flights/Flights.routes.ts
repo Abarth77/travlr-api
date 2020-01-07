@@ -1,12 +1,11 @@
 'use strict';
 
-import * as request from 'superagent';
+import { HttpProvider } from '../../providers/HttpProvider';
 
 const endpoint = 'https://tripadvisor1.p.rapidapi.com/flights/create-session';
 
 const headers = {
-    'x-rapidapi-host': 'tripadvisor1.p.rapidapi.com',
-    'x-rapidapi-key': 'J1dOR0FKn2msh1BiRunoND3e0hZNp1F3K0Njsnoo8N3gZq7wo6',
+    host: 'tripadvisor1.p.rapidapi.com',
 };
 
 const requiredParameters = {
@@ -19,6 +18,8 @@ const requiredParameters = {
 	tc: '11%2C5',
 };
 
+const httpProvider = new HttpProvider(endpoint, headers, requiredParameters);
+
 export class FlightRouter {
 
     public router: any;
@@ -28,17 +29,6 @@ export class FlightRouter {
     }
 
     public async getFlights() {
-        const data = await request.get(endpoint)
-        .set('X-RapidAPI-Host', headers['x-rapidapi-host'])
-        .set('X-RapidAPI-Key', headers['x-rapidapi-key'])
-        .query(requiredParameters)
-        .then((response: any) => {
-            return response.body;
-        })
-        .catch((error: any) => {
-            throw new Error(error);
-        });
-
-        return data;
+        return httpProvider.get();
     }
 }
