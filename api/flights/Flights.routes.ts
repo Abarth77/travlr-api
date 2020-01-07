@@ -22,13 +22,8 @@ const httpProvider = new HttpProvider(endpoint, headers, requiredParameters);
 
 export class FlightRouter {
 
-    public router: any;
-
-    constructor(router: any) {
-        this.router = router;
-    }
-
     public async getFlights() {
         return httpProvider.get();
     }
+
 }

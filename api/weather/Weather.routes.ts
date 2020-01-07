@@ -26,13 +26,8 @@ const httpProvider = new HttpProvider(endpoint, headers, requiredParameters, opt
 
 export class WeatherRouter {
 
-    public router: any;
-
-    constructor(router: any) {
-        this.router = router;
-    }
-
     public async getWeather() {
         return httpProvider.get();
     }
+
 }
