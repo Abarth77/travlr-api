@@ -19,17 +19,26 @@ const requiredParameters = {
 	tc: '11%2C5',
 };
 
-export async function getFlights({flightsRouter}: any) {
-    flightsRouter.get('/', async (ctx: any, next: any) => {
-        await request.get(endpoint)
+export class FlightRouter {
+
+    public router: any;
+
+    constructor(router: any) {
+        this.router = router;
+    }
+
+    public async getFlights() {
+        const data = await request.get(endpoint)
         .set('X-RapidAPI-Host', headers['x-rapidapi-host'])
         .set('X-RapidAPI-Key', headers['x-rapidapi-key'])
         .query(requiredParameters)
         .then((response: any) => {
-            ctx.body = response.body;
+            return response.body;
         })
         .catch((error: any) => {
             throw new Error(error);
         });
-    });
+
+        return data;
+    }
 }

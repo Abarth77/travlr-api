@@ -23,17 +23,26 @@ const optionalParameters = {
     units: 'metric',
 };
 
-export async function getWeather({weatherRouter}: any) {
-    weatherRouter.get('/', async (ctx: any, next: any) => {
-        await request.get(endpoint)
+export class WeatherRouter {
+
+    public router: any;
+
+    constructor(router: any) {
+        this.router = router;
+    }
+
+    public async getWeather() {
+        const data = await request.get(endpoint)
         .set('X-RapidAPI-Host', headers['x-rapidapi-host'])
         .set('X-RapidAPI-Key', headers['x-rapidapi-key'])
         .query(requiredParameters)
         .then((response: any) => {
-            ctx.body = response.body;
+            return response.body;
         })
         .catch((error: any) => {
             throw new Error(error);
         });
-    });
+
+        return data;
+    }
 }
